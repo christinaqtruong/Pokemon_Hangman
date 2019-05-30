@@ -1,0 +1,20 @@
+body{
+    background:black;
+}
+
+.Name{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: gainsboro;
+    text-align: center;
+    margin: 10px;
+    font-size: 1.5em;
+}
+
+.img-fluid{
+    margin: 0 auto;
+}
+
+.col-md-4 {
+    max-height: 250px;
+    max-width:200px;
+}

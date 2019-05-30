@@ -1,4 +1,8 @@
-var pokemon = [
+var letsPlay = confirm(
+  "WAIT! It's dangerous out there! Take one of these Pokemon! If you can guess its name, that is."
+);
+if (letsPlay) {
+  var pokemon = [
     "bulbasaur",
     "ivysaur",
     "venusaur",
@@ -80,7 +84,7 @@ var pokemon = [
     "slowbro",
     "magnemite",
     "magneton",
-    "farfetchd",
+    "farfetch'd",
     "doduo",
     "dodrio",
     "seel",
@@ -149,48 +153,56 @@ var pokemon = [
     "dragonite",
     "mewtwo",
     "mew"
-];
+  ];
+      var random = document.getElementById('random');
 
-alert("WAIT! It's dangerous out there! Take one of these Pokemon! If you can guess its name, that is.")
+  var randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
+  console.log(randomPokemon);
 
-var randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
-
-var blanks = [];
-for (var i = 0; i < randomPokemon.length; i++) {
+  var blanks = [];
+  for (var i = 0; i < randomPokemon.length; i++) {
     blanks[i] = "_";
-}
-var remainingLetters = randomPokemon.length;
+  }
 
-while (remainingLetters > 0) {
-    alert(blanks.join(" "));
+  var htmlString = blanks.join(" ");
+  random.innerText = htmlString
+  // // if(i === randomPokemon.length){
+  // //     var joinedBlanks = blanks.join(" ")
+  // //     console.log(joinedBlanks);
+  // //     var random = document.getElementById('random');
+  // //     random.innerText(joinedBlanks);
+  // // }
 
+  // if(i === randomPokemon.length){
+  //     document.getElementById("random").textContent = joinedBlanks;
+  // }
 
-var guess = prompt("Guess a letter, or click Cancel to stop playing.");
-if (guess === null){
-    break;
-} else if (guess.length !== 1){
-    alert("Please enter a SINGLE letter.");
-} else {
-    for (var j = 0; j < randomPokemon.length; j++){
-        if (randomPokemon[j] === guess.toLowerCase()) {
-            blanks[j] = guess.toLowerCase(); 
-            remainingLetters--;
+  document.onkeyup = function(event) {
+    var guess = event.key;
+
+    document.getElementById("letter").textContent =
+      "You guessed the letter " + guess;
+
+    for (var i = 0; i < randomPokemon.length; i++) {
+        var letterArray = randomPokemon[i].split('');
+        console.log(letterArray);
+    
+      if (randomPokemon[i] === guess) {
+        var correct = letterArray.indexOf(guess);
+        console.log("yes")
+        blanks[i] = guess
+        var htmlString = blanks.join(" ");
+        random.innerText = htmlString      
+        if(blanks.indexOf("_")===-1){
+            console.log("You win")
         }
+        console.log(blanks)
+      }
     }
+  };
+
+  
+  if (blanks === randomPokemon) {
+    document.write("Congratulations! Here is your " + randomPokemon + "!");
+  }
 }
-}
-
-var guesses = document.getElementById("letter");
-document.onkeyup = function(event){
-    letter.textContent = event.key;
-};
-
-guesses.textContent = guess.toLowerCase();
-
-var random = document.getElementById("random");
-document.onkeyup = function(){
-    random.textContent = blanks;
-}
-
-alert(blanks.join(""));
-alert("Congratulations! Here is your " + randomPokemon + "!");

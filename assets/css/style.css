@@ -1,11 +1,18 @@
-body{
-    background:black;
-}
-
 *{
     color: gainsboro;
     line-height: 1.5em;
     font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+body{
+    background:black;
+}
+
+.spiel{
+    margin: 20px;
+    padding-left: 20%;
+    padding-right: 20%;
 }
 
 .Name{
@@ -23,4 +30,12 @@ body{
 .col-md-4 {
     max-height: 250px;
     max-width:200px;
+}
+
+#random{
+    color: gold;
+}
+
+#letter{
+    color: mediumblue;
 }

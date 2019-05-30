@@ -180,5 +180,17 @@ if (guess === null){
 }
 }
 
+var guesses = document.getElementById("letter");
+document.onkeyup = function(event){
+    letter.textContent = event.key;
+};
+
+guesses.textContent = guess.toLowerCase();
+
+var random = document.getElementById("random");
+document.onkeyup = function(){
+    random.textContent = blanks;
+}
+
 alert(blanks.join(""));
 alert("Congratulations! Here is your " + randomPokemon + "!");

@@ -226,7 +226,7 @@ if (letsPlay) {
 			  
 			  alert("CORRECT! Great job! Take your " + randomPokemon + "!");
         completed = true;
-        location.reload();
+        alert("Please refresh the page if you want another pokémon! Unfortunately our code still has bugs!")
 			}
 			console.log(blanks);
 		  }

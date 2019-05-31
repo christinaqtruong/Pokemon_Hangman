@@ -192,7 +192,11 @@ if (letsPlay) {
 		}
 		else{
 		  count++;
-		  lives--;
+      lives--;
+      if(lives < 1){
+        alert("Oh no! You've run out of guesses! Sorry, better luck next time!")
+        location.reload();
+      }
 		}
 
 		document.getElementById("letter").textContent =
@@ -216,12 +220,13 @@ if (letsPlay) {
 				var youWin = document.getElementById("youwin");
 				var goodJob = ("You got it! Here is your " + randomPokemon + "!");
 				youWin.innerText = goodJob;
-			  //So I was able to set the variables to console.log, but it will not display on the webpage using the above code so I put it in an alert.
+			  
 			  console.log("You win");
 			  console.log(goodJob);
 			  
 			  alert("CORRECT! Great job! Take your " + randomPokemon + "!");
-			  completed = true;
+        completed = true;
+        location.reload();
 			}
 			console.log(blanks);
 		  }

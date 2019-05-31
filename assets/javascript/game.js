@@ -177,60 +177,55 @@ if (letsPlay) {
   var dashes = blanks.join(" ");
   random.innerText = dashes;
 
+  //set up the count, the number of lives, and the status of the game
+  var count = 0;
+  var lives = 20;
+  var completed = false;
+
   //this function triggers upon pressing a key (the user's guess)
   document.onkeyup = function(event) {
-    var guess = event.key;
+	if(!completed){
+		var guess = event.key;
 
-    if(guess.length !== 1){
-      alert("Please press a letter!")
-    }
+		if(guess.length !== 1){
+		  alert("Please press a letter!")
+		}
+		else{
+		  count++;
+		  lives--;
+		}
 
-    document.getElementById("letter").textContent =
-      "'" + guess + "'";
+		document.getElementById("letter").textContent =
+		  "'" + guess + "'";
 
-    for (var i = 0; i < randomPokemon.length; i++) {
-      var letterArray = randomPokemon[i];
-      console.log(letterArray);
+		for (var i = 0; i < randomPokemon.length; i++) {
+		  var letterArray = randomPokemon[i];
+		  console.log(letterArray);
+		  
+		  document.getElementById("attempts").textContent = count;
+		  document.getElementById("lives").textContent = lives;
 
-      if (randomPokemon[i] === guess) {
-        var correct = letterArray.indexOf(guess);
-        console.log("yes");
-        blanks[i] = guess;
-        var htmlString = blanks.join(" ");
-        random.innerText = htmlString;
-        
-        if (blanks.indexOf("_") === -1) {
-            var youWin = document.getElementById("youwin");
-            var goodJob = ("You got it! Here is your " + randomPokemon + "!");
-            youWin.innerText = goodJob;
-          //So I was able to set the variables to console.log, but it will not display on the webpage using the above code so I put it in an alert.
-          console.log("You win");
-          console.log(goodJob);
-          
-          alert("CORRECT! Great job! Take your " + randomPokemon + "!");
-        }
-        console.log(blanks);
-      }
-    }
-
-     //trying to get the counter to display on the screen
-     var count = 0;
-     var lives = 20;
-     document.onkeyup = function(){
-       if(guess.length === 1){
-       ++count;
-       console.log(count);
-       //document.getElementsById("attempts").innerText = count;
-    //    //decreasing number of attempts left
-       lives--;
-    //    document.getElementsById("lives").innerText = lives;
-       console.log(lives);
-       }
- 
-     }
-     
-     //you guesses so far:
- 
- 
+		  if (randomPokemon[i] === guess) {
+			var correct = letterArray.indexOf(guess);
+			console.log("yes");
+			blanks[i] = guess;
+			var htmlString = blanks.join(" ");
+			random.innerText = htmlString;
+			
+			if (blanks.indexOf("_") === -1) {
+				var youWin = document.getElementById("youwin");
+				var goodJob = ("You got it! Here is your " + randomPokemon + "!");
+				youWin.innerText = goodJob;
+			  //So I was able to set the variables to console.log, but it will not display on the webpage using the above code so I put it in an alert.
+			  console.log("You win");
+			  console.log(goodJob);
+			  
+			  alert("CORRECT! Great job! Take your " + randomPokemon + "!");
+			  completed = true;
+			}
+			console.log(blanks);
+		  }
+		}
+	}
   };
 }

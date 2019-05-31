@@ -171,6 +171,8 @@ if (letsPlay) {
     blanks[i] = "_";
   }
 
+  console.log(blanks);
+
   //htmlString joins the blank dashes with spaces and inserts it into the html at the element assigned random
   var dashes = blanks.join(" ");
   random.innerText = dashes;
@@ -183,11 +185,13 @@ if (letsPlay) {
       alert("Please press a letter!")
     }
 
+    
+
     document.getElementById("letter").textContent =
       "'" + guess + "'";
 
     for (var i = 0; i < randomPokemon.length; i++) {
-      var letterArray = randomPokemon[i].split("");
+      var letterArray = randomPokemon[i];
       console.log(letterArray);
 
       if (randomPokemon[i] === guess) {
@@ -196,15 +200,19 @@ if (letsPlay) {
         blanks[i] = guess;
         var htmlString = blanks.join(" ");
         random.innerText = htmlString;
+        
         if (blanks.indexOf("_") === -1) {
+            var youWin = document.getElementById("youwin");
+            var goodJob = ("You got it! Here is your " + randomPokemon + "!");
+            //youWin.innerText = goodJob;
+          //So I was able to set the variables to console.log, but it will not display on the webpage using the above code so I put it in an alert.
           console.log("You win");
+          console.log(goodJob);
+          
+          alert("CORRECT! Great job! Take your " + randomPokemon + "!");
         }
         console.log(blanks);
       }
     }
   };
-
-  if (blanks === randomPokemon) {
-    document.write("Congratulations! Here is your " + randomPokemon + "!");
-  }
 }

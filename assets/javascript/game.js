@@ -1,7 +1,10 @@
+//Instead of getting the game to start up on hitting any key, I started it using a confirm prompt so that it could pop up this cute message first.
+
 var letsPlay = confirm(
   "WAIT! It's dangerous out there! Take one of these Pokemon! If you can guess its name, that is."
 );
 if (letsPlay) {
+  //pokemon array listing all 100 first generation pokemon as the word bank for Hangman
   var pokemon = [
     "bulbasaur",
     "ivysaur",
@@ -154,54 +157,53 @@ if (letsPlay) {
     "mewtwo",
     "mew"
   ];
-      var random = document.getElementById('random');
 
+  // random is assigned to the html element 'random'
+  var random = document.getElementById("random");
+
+  //randomPokemon is assigned to randomly generate a pokemon to guess from the word bank
   var randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
   console.log(randomPokemon);
 
+  //blank is assigned to an array filled with dashes equal to the length of randomPokemon
   var blanks = [];
   for (var i = 0; i < randomPokemon.length; i++) {
     blanks[i] = "_";
   }
 
-  var htmlString = blanks.join(" ");
-  random.innerText = htmlString
-  // // if(i === randomPokemon.length){
-  // //     var joinedBlanks = blanks.join(" ")
-  // //     console.log(joinedBlanks);
-  // //     var random = document.getElementById('random');
-  // //     random.innerText(joinedBlanks);
-  // // }
+  //htmlString joins the blank dashes with spaces and inserts it into the html at the element assigned random
+  var dashes = blanks.join(" ");
+  random.innerText = dashes;
 
-  // if(i === randomPokemon.length){
-  //     document.getElementById("random").textContent = joinedBlanks;
-  // }
-
+  //this function triggers upon pressing a key (the user's guess)
   document.onkeyup = function(event) {
     var guess = event.key;
 
+    if(guess.length !== 1){
+      alert("Please press a letter!")
+    }
+
     document.getElementById("letter").textContent =
-      "You guessed the letter " + guess;
+      "'" + guess + "'";
 
     for (var i = 0; i < randomPokemon.length; i++) {
-        var letterArray = randomPokemon[i].split('');
-        console.log(letterArray);
-    
+      var letterArray = randomPokemon[i].split("");
+      console.log(letterArray);
+
       if (randomPokemon[i] === guess) {
         var correct = letterArray.indexOf(guess);
-        console.log("yes")
-        blanks[i] = guess
+        console.log("yes");
+        blanks[i] = guess;
         var htmlString = blanks.join(" ");
-        random.innerText = htmlString      
-        if(blanks.indexOf("_")===-1){
-            console.log("You win")
+        random.innerText = htmlString;
+        if (blanks.indexOf("_") === -1) {
+          console.log("You win");
         }
-        console.log(blanks)
+        console.log(blanks);
       }
     }
   };
 
-  
   if (blanks === randomPokemon) {
     document.write("Congratulations! Here is your " + randomPokemon + "!");
   }

@@ -185,8 +185,6 @@ if (letsPlay) {
       alert("Please press a letter!")
     }
 
-    
-
     document.getElementById("letter").textContent =
       "'" + guess + "'";
 
@@ -204,7 +202,7 @@ if (letsPlay) {
         if (blanks.indexOf("_") === -1) {
             var youWin = document.getElementById("youwin");
             var goodJob = ("You got it! Here is your " + randomPokemon + "!");
-            //youWin.innerText = goodJob;
+            youWin.innerText = goodJob;
           //So I was able to set the variables to console.log, but it will not display on the webpage using the above code so I put it in an alert.
           console.log("You win");
           console.log(goodJob);
@@ -214,5 +212,25 @@ if (letsPlay) {
         console.log(blanks);
       }
     }
+
+     //trying to get the counter to display on the screen
+     var count = 0;
+     var lives = 20;
+     document.onkeyup = function(){
+       if(guess.length === 1){
+       ++count;
+       console.log(count);
+       //document.getElementsById("attempts").innerText = count;
+    //    //decreasing number of attempts left
+       lives--;
+    //    document.getElementsById("lives").innerText = lives;
+       console.log(lives);
+       }
+ 
+     }
+     
+     //you guesses so far:
+ 
+ 
   };
 }

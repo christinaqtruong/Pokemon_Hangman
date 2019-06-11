@@ -211,8 +211,19 @@ if (letsPlay) {
 		  count++;
       lives--;
       if(lives < 1){
-        alert("Oh no! You've run out of guesses! Sorry, better luck next time!")
-        location.reload();
+        $(function () {
+          $('.warning').empty();
+
+          var printWarning = function (target, message, index, interval){   
+            if (index < message.length) {
+            $(target).append(message[index++]);
+            setTimeout(function () { printWarning(target, message, index, interval); }, interval);
+            
+            }
+        }
+
+          printWarning(".warning", "Sorry! Looks like this " + randomPokemon + " is staying with me.", 0, 80);   
+        });
       }
 		}
 

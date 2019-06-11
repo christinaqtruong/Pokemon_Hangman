@@ -11,7 +11,7 @@ $(document).ready(function(){
       }
   
     $(function () {
-      printWarning(".warning", "WAIT! It's dangerous out there! Take one of these Pokemon! If you can guess its name, that is.", 0, 80);   
+      printWarning(".warning", "WAIT! It's dangerous out there! Take one of these Pokémon! If you can guess its name, that is.", 0, 80);   
     });
   
   })

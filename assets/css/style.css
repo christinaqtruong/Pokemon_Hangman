@@ -6,6 +6,11 @@
 }
 
 /*body*/
+
+.warning{
+    margin: 10px auto;
+}
+
 .spiel{
     margin: 10px;
     padding-left: 15%;

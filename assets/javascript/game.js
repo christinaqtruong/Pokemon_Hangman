@@ -1,8 +1,28 @@
+//on startup: 
+$(document).ready(function(){
+
+  //have professor oak's spiel pop up letter by letter
+      var printSpiel = function (target, message, index, interval){   
+          if (index < message.length) {
+          $(target).append(message[index++]);
+          setTimeout(function () { printSpiel(target, message, index, interval); }, interval);
+          
+          }
+      }
+  
+    $(function () {
+      printSpiel(".spiel", "Hello there! Welcome to the world of Pokémon! My name is Oak! People call me the Pokémon Prof! This world is inhabited by creatures called Pokémon! For some people, Pokémon are pets. Others use them for fights... Your very own Pokémon adventure is about to unfold! A world of dreams and adventures with Pokémon awaits! Let's go!", 0, 100);   
+    });
+  
+  })
+
 //Instead of getting the game to start up on hitting any key, I started it using a confirm prompt so that it could pop up this cute message first.
 
 var letsPlay = confirm(
   "WAIT! It's dangerous out there! Take one of these Pokemon! If you can guess its name, that is."
 );
+
+
 if (letsPlay) {
   //pokemon array listing all 100 first generation pokemon as the word bank for Hangman
   var pokemon = [

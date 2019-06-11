@@ -27,7 +27,7 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color:darkslategrey;
     text-align: center;
-    margin: 10px;
+    margin: 0 auto;
     font-size: 1.5em;
     padding-top:10px;
 }
@@ -40,12 +40,13 @@
     padding: 0.25rem
 }
 
+.container{
+    margin: 0 auto;
+}
+
 .professor{
     margin-left:auto;
     margin-right:auto;  
-}
-
-.col-md-4 {
     max-height: 250px;
     max-width:200px;
 }

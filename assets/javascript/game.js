@@ -240,10 +240,22 @@ if (letsPlay) {
 			  
 			  console.log("You win");
 			  console.log(goodJob);
-			  
-			  alert("CORRECT! Great job! Take your " + randomPokemon + "!");
+        
+        $(function () {
+          $('.warning').empty();
+
+          var printWarning = function (target, message, index, interval){   
+            if (index < message.length) {
+            $(target).append(message[index++]);
+            setTimeout(function () { printWarning(target, message, index, interval); }, interval);
+            
+            }
+        }
+
+          printWarning(".warning", "You did it! Great job. Take your " + randomPokemon + "!", 0, 80);   
+        });
+
         completed = true;
-        alert("Please refresh the page if you want another pokémon! Unfortunately our code still has bugs!")
 			}
 			console.log(blanks);
 		  }

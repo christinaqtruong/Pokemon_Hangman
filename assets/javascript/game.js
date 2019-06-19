@@ -16,8 +16,6 @@ $(document).ready(function(){
   
   })
 
-//Instead of getting the game to start up on hitting any key, I started it using a confirm prompt so that it could pop up this cute message first.
-
 var letsPlay = true;
 
 if (letsPlay) {

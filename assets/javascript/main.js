@@ -168,6 +168,15 @@ var lives = randomPokemon.length + 10;
 //dashes holds all the blanks joined together by spaces
 var dashes;
 
+//stops user from continuing to guess once the game ends
+var complete = false;
+
+//holds user's guess
+var guess;
+
+//holds random pokemon letters in an array
+var letterArray;
+
 //function that prints the instructions on the screen
 var instructions = function (target, message, index, interval){   
   if (index < message.length) {
@@ -183,7 +192,7 @@ function enableStartBtn() {
   document.getElementById('start-btn').removeAttribute('disabled');
 
   $(function () {
-  instructions("#instructions", "WAIT! It's dangerous out there! Take one of these Pokémon! If you can guess its name, that is.", 0, 80);   
+  instructions("#instructions", "WAIT! It's dangerous out there! Take one of these Pokémon! If you can guess its name, that is.", 0, 50);   
   });
 }
 
@@ -192,12 +201,22 @@ function professorOak(){
   $('#professor-oak').removeAttr('style'); 
 }
 
+//function that resets the game after it is finished
+function endGame(){
+  //removes the input field
+  $('#input-form').empty();
+
+  //removes the dashes
+  $('#dashes-display').empty();
+
+  //hides instructions
+  $('#instructions').empty();
+}
+
 //function that plays Hangman
 function play(){
   //hides professor oak
   document.getElementById('professor-oak').setAttribute('style', 'display:none;');
-
-  //hides instructions
 
   //populates blanks array with dashes equal to the random pokemon length
   for(var i=0; i < randomPokemon.length; i++){
@@ -212,8 +231,37 @@ function play(){
 
   //creates an input form on the page
   var inputField = $('<input id="input-field" type="text">');
+  var form = $('#input-form');
+  form.append(inputField);
+  
+  //when submit is hit, check the guess
+  form.on('submit', function(event){
+    event.preventDefault();
+  })
 
-  $('#input-form').append(inputField);
+  document.onkeyup = function(event) {
+    if(!complete){
+    guess = event.key;
+
+      for (var i = 0; i < randomPokemon.length; i++) {
+        letterArray = randomPokemon[i];
+        console.log(letterArray);
+
+        if (randomPokemon[i] === guess) {
+          var correct = letterArray.indexOf(guess);
+          console.log("yes");
+          blanks[i] = guess;
+          var htmlString = blanks.join(" ");
+          $('#dashes-display').text(htmlString);
+          
+          if (blanks.indexOf("_") === -1) {
+            var goodJob = ("You got it! Here is your " + randomPokemon + "!");
+            $('#instructions').text(goodJob);
+          }
+        }
+      }
+    }
+  }
 }
 
 //push start button to start game

@@ -156,13 +156,17 @@ var pokemon = [
 var randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
 console.log(randomPokemon);
 
-//array of blanks
+//array of blanks to be filled with dashes equal to the random Pokemon array length
 var blanks = [];
 
+//starting count
 var count = 0;
 
 //number of guesses
 var lives = randomPokemon.length + 10;
+
+//dashes holds all the blanks joined together by spaces
+var dashes;
 
 //push on button to see game instructions and activate play button
 $('#on-btn').on('click', function(){
@@ -171,31 +175,31 @@ $('#on-btn').on('click', function(){
     enableStartBtn();
 
     //shows professor Oak and the game instructions
-    professorOak();
+    // professorOak();
 
 })
 
 function enableStartBtn() {
-  document.getElementById('start-btn').removeAttribute('disabled') = false;
+  document.getElementById('start-btn').removeAttribute('disabled');
 }
 
-function professorOak(){
-  $('#professor-oak').removeAttribute('display');
+// function professorOak(){
+//   $('#professor-oak').removeAttribute('display');
 
-  $(function(){
-    instructions('#instructions', "WAIT! It's dangerous out there! Take one of these Pokémon! If you can guess its name, that is.", 0, 80);
-  })
-}
+//   $(function(){
+//     instructions('#instructions', "WAIT! It's dangerous out there! Take one of these Pokémon! If you can guess its name, that is.", 0, 80);
+//   })
+// }
 
-$(document).ready(function(){
-  var instructions = function(target, message, index, interval){
-    if(index < message.length){
-      $(target).append(message[index++]);
+// $(document).ready(function(){
+//   var instructions = function(target, message, index, interval){
+//     if(index < message.length){
+//       $(target).append(message[index++]);
 
-      setTimeout(function(){instructions(target, message, index, interval);}, interval);
-    }
-  }
-})
+//       setTimeout(function(){instructions(target, message, index, interval);}, interval);
+//     }
+//   }
+// })
 
 //push start button to start game
 $('#start-btn').on('click', function(){
@@ -207,4 +211,12 @@ $('#start-btn').on('click', function(){
 
 function play(){
   console.log("The start button is ON!")
+
+  for(var i=0; i < randomPokemon.length; i++){
+    blanks[i] = "_";
+  }
+  dashes = blanks.join(" ");
+
+  //where dashes will be displayed
+  $('#dashes-display').text(dashes);
 }

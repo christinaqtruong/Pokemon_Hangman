@@ -152,9 +152,13 @@
     "mew"
   ];
 
-  //randomPokemon is assigned to randomly generate a pokemon to guess from the word bank
-  var randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
-  console.log(randomPokemon);
+//randomPokemon is assigned to randomly generate a pokemon to guess from the word bank
+var randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
+console.log(randomPokemon);
+
+var blanks = [];
+var count = 0;
+var lives = randomPokemon.length + 10;
 
 //on startup: 
 $(document).ready(function(){
@@ -182,20 +186,15 @@ if (letsPlay) {
   var random = document.getElementById("random");
 
   //blank is assigned to an array filled with dashes equal to the length of randomPokemon
-  var blanks = [];
   for (var i = 0; i < randomPokemon.length; i++) {
     blanks[i] = "_";
   }
-
-  console.log(blanks);
 
   //htmlString joins the blank dashes with spaces and inserts it into the html at the element assigned random
   var dashes = blanks.join(" ");
   random.innerText = dashes;
 
   //set up the count, the number of lives, and the status of the game
-  var count = 0;
-  var lives = 20;
   var completed = false;
 
   //this function triggers upon pressing a key (the user's guess)

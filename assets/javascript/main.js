@@ -175,7 +175,7 @@ $('#on-btn').on('click', function(){
     enableStartBtn();
 
     //shows professor Oak and the game instructions
-    // professorOak();
+    professorOak();
 
 })
 
@@ -183,23 +183,23 @@ function enableStartBtn() {
   document.getElementById('start-btn').removeAttribute('disabled');
 }
 
-// function professorOak(){
-//   $('#professor-oak').removeAttribute('display');
+function professorOak(){
+  $('#professor-oak').removeAttr('style');
 
-//   $(function(){
-//     instructions('#instructions', "WAIT! It's dangerous out there! Take one of these Pokémon! If you can guess its name, that is.", 0, 80);
-//   })
-// }
+  // $(document).ready(function(){
+  //   var instructions = function(target, message, index, interval){
+  //     if(index < message.length){
+  //       $(target).append(message[index++]);
+  
+  //       setTimeout(function(){instructions(target, message, index, interval);}, interval);
+  //     }
+  //   }
+  // })
 
-// $(document).ready(function(){
-//   var instructions = function(target, message, index, interval){
-//     if(index < message.length){
-//       $(target).append(message[index++]);
-
-//       setTimeout(function(){instructions(target, message, index, interval);}, interval);
-//     }
-//   }
-// })
+  // $(function(){
+  //   instructions('#instructions', "WAIT! It's dangerous out there! Take one of these Pokémon! If you can guess its name, that is.", 0, 80);
+  // })
+}
 
 //push start button to start game
 $('#start-btn').on('click', function(){
@@ -211,6 +211,8 @@ $('#start-btn').on('click', function(){
 
 function play(){
   console.log("The start button is ON!")
+
+  document.getElementById('professor-oak').setAttribute('style', 'display:none;');
 
   for(var i=0; i < randomPokemon.length; i++){
     blanks[i] = "_";

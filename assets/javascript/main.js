@@ -188,32 +188,41 @@ var instructions = function (target, message, index, interval){
   }
 }
 
-//function that enables the Start Button, shows professor oak, and prints the instructions
-function enableStartBtn() {
-  document.getElementById('start-btn').removeAttribute('disabled');
-
-  $(function () {
-  instructions("#instructions", "WAIT! It's dangerous out there! Take one of these Pokémon! If you can guess its name, that is.", 0, 50);   
-  });
-
-  console.log(randomPokemon);
-}
-
 //function that shows professor oak
 function professorOak(){
   $('#professor-oak').removeAttr('style'); 
 }
 
+//function shows professor oak and instructions
+function preview(){
+$(function () {
+  instructions("#instructions", "WAIT! It's dangerous out there! Take one of these Pokémon! If you can guess its name, that is.", 0, 50);   
+  });
+
+  //shows professor Oak and the game instructions
+  professorOak();
+
+  console.log(randomPokemon);
+}
+
+//function that temporarily disables ON button
+function disableOnBtn() {
+  document.getElementById('on-btn').setAttribute('disabled', 'disabled');
+
+  $('#on-btn').text('OFF');
+}
+
+//function that enables the Start Button
+function enableStartBtn() {
+  document.getElementById('start-btn').removeAttribute('disabled');
+}
+
 //function that resets the game after it is finished
-function endGame(){
-  //removes the input field
-  $('#input-form').empty();
-
-  //removes the dashes
-  $('#dashes-display').empty();
-
-  //hides instructions
+function clearBoard(){
   $('#instructions').empty();
+  $('#input-form').empty();
+  $('#guess-display').empty();
+  $('#lives').empty();
 }
 
 //function that plays Hangman
@@ -248,33 +257,44 @@ function play(){
 
     //sets guess to be the user's input
     guess = inputField.val();
-    console.log(guess);
-
+    var wasGuessCorrect = false;
+    //checks user guess 
     for (var i = 0; i < randomPokemon.length; i++) {
       letterArray = randomPokemon[i];
-      console.log(letterArray);
 
       if (randomPokemon[i] === guess) {
-        var correct = letterArray.indexOf(guess);
-        console.log("yes");
+        wasGuessCorrect = true;
         blanks[i] = guess;
-        var htmlString = blanks.join(" ");
-        $('#dashes-display').text(htmlString);
+        var correctGuesses = blanks.join(" ");
+        $('#dashes-display').text(correctGuesses);
+        $('#lives').text('Lives: ' + lives);
         
         if (blanks.indexOf("_") === -1) {
-          var goodJob = ("You got it! Here is your " + randomPokemon + "!");
-          $('#instructions').text(goodJob);
+          clearBoard();
+          
+          var goodJob = ("Congratulations. Your journey as a Pokémon weeaboo is about to begin. Here is your " + randomPokemon + "!");
+
+          $(function () {
+            instructions("#instructions", goodJob, 0, 50);   
+          });
         }
       }
+    }
 
-        else if (randomPokemon[i] !== guess) {
-          //grabs user input as the guess and displays it on the screen
-          guessesArray.push(guess);
-          guessed = guessesArray.join(", ");
-          $("#guess-display").text(guessed);
+    if (!wasGuessCorrect) {
+      lives--;
+      $('#lives').text('Lives: ' + lives);
+      
+      //grabs user input as the guess and displays it on the screen
+      guessesArray.push(guess);
+      guessed = guessesArray.join(" ");
+      $("#guess-display").text(guessed);
 
-          lives--;
-          $('#lives').text(lives);
+      if(lives < 1){
+        clearBoard();
+        $('#dashes-display').text(randomPokemon);
+        $(function(){
+          instructions('#instructions', 'Oh no! The ' + randomPokemon + ' got away because you suck at Hangman. Better luck next time!', 0, 50);});
         }
     }
   })
@@ -296,7 +316,10 @@ $('#on-btn').on('click', function(){
     //enables START button
     enableStartBtn();
 
-    //shows professor Oak and the game instructions
-    professorOak();
+    //disables on button
+    disableOnBtn();
 
-})
+    //shows instructions and professor oak
+    preview();
+}
+)

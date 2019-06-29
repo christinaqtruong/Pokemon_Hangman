@@ -178,6 +178,9 @@ var guessesArray = [];
 
 var guessed;
 
+//if form is made, disable creation of another form upon start button click
+var formCreated = false;
+
 //function that prints the instructions on the screen
 var instructions = function (target, message, index, interval){   
   if (index < message.length) {
@@ -244,8 +247,13 @@ function play(){
   //creates an input form on the page
   var inputField = $('<input id="input-field" type="text">');
   var form = $('#input-form');
-  form.append(inputField);
   
+  if(!formCreated){
+  form.append(inputField);
+
+  formCreated = true;
+  }
+
   //changes the key to whatever was last entered into the input field
   inputField.on("input",function(e){
     $(this).val(e.originalEvent.data);
@@ -281,8 +289,13 @@ function play(){
       }
     }
 
+
+    //if guess is incorrect, puts the letter in the letter bank
     if (!wasGuessCorrect) {
-      lives--;
+      
+      //if user guess is not already guessed
+      if(guessesArray.indexOf(guess) == -1){
+        lives--;
       $('#lives').text('Lives: ' + lives);
       
       //grabs user input as the guess and displays it on the screen
@@ -296,6 +309,7 @@ function play(){
         $(function(){
           instructions('#instructions', 'Oh no! The ' + randomPokemon + ' got away because you suck at Hangman. Better luck next time!', 0, 50);});
         }
+      }
     }
   })
 }

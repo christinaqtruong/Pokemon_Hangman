@@ -181,6 +181,39 @@ var guessed;
 //if form is made, disable creation of another form upon start button click
 var formCreated = false;
 
+//if on button is pressed, switch to off button
+var switchOff = false;
+
+/************************************************************************/
+
+//push on button to see game instructions and activate play button
+$('#on-btn').on('click', function(){
+
+  //enables START button
+  enableStartBtn();
+
+  //shows instructions and professor oak
+  preview();
+
+  switchOff = true;
+
+  // disables start button functions
+  document.getElementById('on-btn').setAttribute('disabled', 'disabled');
+
+  //changes ON button text to OFF button
+  $('#on-btn').text('OFF')
+
+  $('#on-btn').attr('id', 'off-btn');
+}
+)
+
+/************************************************************************/
+
+//function that enables the Start Button
+function enableStartBtn() {
+  document.getElementById('start-btn').removeAttribute('disabled');
+}
+
 //function that prints the instructions on the screen
 var instructions = function (target, message, index, interval){   
   if (index < message.length) {
@@ -198,33 +231,50 @@ function professorOak(){
 
 //function shows professor oak and instructions
 function preview(){
-$(function () {
-  instructions("#instructions", "WAIT! It's dangerous out there! Take one of these Pokémon! If you can guess its name, that is.", 0, 50);   
-  });
+  $(function () {
+    instructions("#instructions", "WAIT! It's dangerous out there! Take one of these Pokémon! If you can guess its name, that is.", 0, 50);   
+    });
+  
+    //shows professor Oak and the game instructions
+    professorOak();
+  
+    console.log(randomPokemon);
+  }
 
-  //shows professor Oak and the game instructions
-  professorOak();
+/************************************************************************/
 
-  console.log(randomPokemon);
+//function that clears the screen and resets the ON button
+function off(){
+  if(switchOff){
+  
+    //switches ON button to OFF button
+    switchToOffBtn();
+
+    //clears the screen
+    clearBoard();
+
+    switchOff = false;
+  }
 }
 
 //function that temporarily disables ON button
-function disableOnBtn() {
-  document.getElementById('on-btn').setAttribute('disabled', 'disabled');
-
-  $('#on-btn').text('OFF');
+function switchToOffBtn() {
+  //hides professor oak
+  document.getElementById('professor-oak').setAttribute('style', 'display:none;');
 }
 
-//function that enables the Start Button
-function enableStartBtn() {
-  document.getElementById('start-btn').removeAttribute('disabled');
-}
-
-//function that resets the game after it is finished
+//function that clears the screen
 function clearBoard(){
+  //empties instructions
   $('#instructions').empty();
+
+  //removes input form
   $('#input-form').empty();
+  
+  //removes the guesses
   $('#guess-display').empty();
+
+  //removes the lives display
   $('#lives').empty();
 }
 
@@ -285,6 +335,8 @@ function play(){
           $(function () {
             instructions("#instructions", goodJob, 0, 50);   
           });
+
+          showPokemon();
         }
       }
     }
@@ -314,8 +366,6 @@ function play(){
   })
 }
 
-
-
 //push start button to start game
 $('#start-btn').on('click', function(){
 
@@ -324,16 +374,35 @@ $('#start-btn').on('click', function(){
 
 })
 
-//push on button to see game instructions and activate play button
-$('#on-btn').on('click', function(){
+$('#off-btn').on('click', function(){
+  //enables OFF button
+  off();
+})
 
-    //enables START button
-    enableStartBtn();
 
-    //disables on button
-    disableOnBtn();
+//shows gif of pokemon upon correct user guess
+function showPokemon (){
+  var queryURL = "https://cors-anywhere.herokuapp.com/" + "http://api.giphy.com/v1/gifs/search?q=" + randomPokemon + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
 
-    //shows instructions and professor oak
-    preview();
-}
-)
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    })
+      .then(function(response) {
+        var results = response.data;
+        
+        var pokemonDiv = $("<div class=\"pokemon-display\">");
+
+        var animated = results[0].images.fixed_height.url;
+
+        var pokemonImage = $("<img>");
+        
+        pokemonImage.attr("src", animated);
+        pokemonImage.addClass("pokemon-image");
+
+        var pokemonDisplay = $('#pokemon-display');
+        pokemonDiv.append(pokemonImage);
+        pokemonDisplay.append(pokemonDiv);
+        }
+    )
+};
